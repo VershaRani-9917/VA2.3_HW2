@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Finance Tracker</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .transaction-item {
+            display: flex
+            justify-content: space-between
+            align-items: center
+            margin-bottom: 5px
+            background-color: #f8f9fa
+            padding: 10px
+            border: 1px solid #ced4da
+            border-radius: 5px
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container mt-3">
+        <h2 class="mb-4">Personal Finance Tracker</h2>
+        <div class=" mb-3 input-group">
+            
+                <input type="text" id="transactionName" class="form-control" placeholder="Transaction Name">
+            
+                <input type="number" id="transactionAmount" class="form-control" placeholder="Amount">
+            
+                <button class="btn btn-primary " onclick="addTransaction()">Add</button>
+           
+        </div>
+
+        <div id="transactionList" class="mt-3"></div>
+    </div>
+
+   
+    <script>
+        function addTransaction() {
+            const transactionNameInput = document.getElementById('transactionName')
+            const transactionAmountInput = document.getElementById('transactionAmount')
+            const transactionName = transactionNameInput.value.trim()
+            const transactionAmount = transactionAmountInput.value.trim()
+
+            if (transactionName === '' || transactionAmount === '') {
+                alert('Please enter both the transaction name and amount.')
+                return;
+            }
+
+            const transactionItem = document.createElement('div')
+            transactionItem.className = 'transaction-item'
+            transactionItem.innerHTML = `
+                <span>${transactionName}   Rs.${transactionAmount}</span>
+                <button class="btn btn-danger btn-sm" onclick="deleteTransaction(this)">Delete</button>
+            `;
+
+            document.getElementById('transactionList').appendChild(transactionItem)
+
+            transactionNameInput.value = ''; 
+            transactionAmountInput.value = '';
+        }
+
+        function deleteTransaction(button) {
+            button.parentElement.remove();
+        }
+    </script>
+
+   
+</body>
+</html>
